@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=10:00:00
+#PBS -l mem=30GB
+#PBS -N gru_train
+#PBS -M sv1239@nyu.edu
+
+set -x
+
+module purge
+
+# this works on crunchy
+#module load LuaJIT-2.0.4
+
+# TODO hpc only?
+module load torch-deps/7
+module load torch/intel/20151009
+
+cd /scratch/sv1239/projects/deeplearning/hw4/src/deeplearning-nyu-2016/sv1239_ass4/
+th realmain.lua --model_dir="./models/" --max_max_epoch=5 --model_type=gru --lr=1 &> gru.log
